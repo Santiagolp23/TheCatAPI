@@ -1,12 +1,13 @@
-import service.catService;
+import service.CatService;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class Start {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         int menuOption = -1;
         String[] buttons = {
-                "1. See Cats" , "2. Exit"
+                "1. See Cats", "2. Exit"
         };
         //start menu
         do {
@@ -21,12 +22,13 @@ public class Start {
 
             switch (menuOption) {
                 case 0:
-                    catService.seeCats();
+                    CatService.seeCats();
                     break;
-                default: break;
+                default:
+                    break;
             }
 
-        } while (menuOption!=1);
+        } while (menuOption != 1);
 
     }
 }

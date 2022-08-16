@@ -1,15 +1,15 @@
 package model;
 
 public class Cats {
-    int id;
+    String id;
     String url, image;
-    private String apikey;
+    String apiKey = APIKey.getApikey();
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -29,11 +29,4 @@ public class Cats {
         this.image = image;
     }
 
-    public String getApikey() {
-        return apikey;
-    }
-
-    public void setApikey(String apikey) {
-        this.apikey = apikey;
-    }
 }
