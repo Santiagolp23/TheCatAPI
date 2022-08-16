@@ -1,6 +1,7 @@
 package service;
 
 import com.google.gson.Gson;
+import model.APIKey;
 import model.Cats;
 import okhttp3.*;
 
@@ -13,7 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class CatService {
-    public static void seeCats() throws IOException {
+    public static Cats seeCats() throws IOException {
         OkHttpClient client = new OkHttpClient().newBuilder()
                 .build();
         MediaType mediaType = MediaType.parse("text/plain");
@@ -41,8 +42,8 @@ public class CatService {
             background = new ImageIcon(bufferedImage);
 
             if (background.getIconWidth() > 800) {
-                Image modified = background.getImage().getScaledInstance(800,600, Image.SCALE_SMOOTH);
-                background =  new ImageIcon(modified);
+                Image modified = background.getImage().getScaledInstance(800, 600, Image.SCALE_SMOOTH);
+                background = new ImageIcon(modified);
             }
 
             String menu = "Options: \n" +
@@ -67,7 +68,7 @@ public class CatService {
                     seeCats();
                     break;
                 case 1:
-                    favoriteCat(cats);
+                    favoriteThisCat(cats);
                     break;
                 default:
                     break;
@@ -76,9 +77,25 @@ public class CatService {
         } catch (IOException e) {
             System.out.println(e);
         }
+        return cats;
     }
 
-    public static void favoriteCat(Cats cat) {
+    public static void favoriteThisCat(Cats cat) {
+        try {
+            OkHttpClient client = new OkHttpClient().newBuilder()
+                    .build();
+            MediaType mediaType = MediaType.parse("application/json");
+            RequestBody body = RequestBody.create(mediaType, "{\r\n    \"image_id\": \"" + cat.getId() + "\"\r\n}");
+            Request request = new Request.Builder()
+                    .url("https://api.thecatapi.com/v1/favourites")
+                    .method("POST", body)
+                    .addHeader("Content-Type", "application/json")
+                    .addHeader("x-api-key", APIKey.getApikey())
+                    .build();
+            Response response = client.newCall(request).execute();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
 
     }
 
