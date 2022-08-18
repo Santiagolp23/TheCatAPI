@@ -1,6 +1,6 @@
 package model;
 
-public class Cats {
+public class Cat {
     String id;
     String url, image;
     String apiKey = APIKey.getApikey();

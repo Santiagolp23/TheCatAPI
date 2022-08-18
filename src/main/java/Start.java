@@ -1,3 +1,4 @@
+import model.Cat;
 import service.CatService;
 
 import javax.swing.*;
@@ -7,7 +8,7 @@ public class Start {
     public static void main(String[] args) throws IOException {
         int menuOption = -1;
         String[] buttons = {
-                "1. See Cats", "2. Exit"
+                "1. See Cats","2. See Favorite Cats", "3. Exit"
         };
         //start menu
         do {
@@ -24,6 +25,9 @@ public class Start {
                 case 0:
                     CatService.seeCats();
                     break;
+                case 1:
+                    Cat cat = new Cat();
+                    CatService.seeFavoriteCats();
                 default:
                     break;
             }
